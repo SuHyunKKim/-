@@ -32,7 +32,7 @@ model_names= sorted(name for name in models.__dict__
 
 parser=argparse.ArgumentParser(description='training pipeline for image classification')
 
-parser.add_argument('--log_path', default='/content/drive/MyDrive/blablabla......./classification/log', type=str)  # 로그 텍스트를 저장할 위치
+parser.add_argument('--log_path', default='/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/log', type=str)  # 로그 텍스트를 저장할 위치
 parser.add_argument('--gpu', default=0, help='gpu allocation')  # 사용할 GPU 선택
 
 parser.add_argument('--model_name', default='resnext50_32x4d', choices=model_names)  # 사용할 모델 선택
@@ -56,14 +56,14 @@ args=parser.parse_args()
 
 
 # make folders
-if not os.path.exists('/content/drive/MyDrive/blablabla......./classification/log'):
-    os.mkdir('/content/drive/MyDrive/blablabla......./classification/log')
+if not os.path.exists('/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/log'):
+    os.mkdir('/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/log')
     
-if not os.path.exists('/content/drive/MyDrive/blablabla......./classification/model_weight'):
-    os.mkdir('/content/drive/MyDrive/blablabla......./classification/model_weight')
+if not os.path.exists('/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/model_weight'):
+    os.mkdir('/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/model_weight')
     
-if not os.path.exists('/content/drive/MyDrive/blablabla.......classification/checkpoint'):
-    os.mkdir('/content/drive/MyDrive/blablabla......./classification/checkpoint')
+if not os.path.exists('/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/checkpoint'):
+    os.mkdir('/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/checkpoint')
 
 
 def log(message):
@@ -135,7 +135,7 @@ def main_worker(args):
         transforms.ToTensor()
     ])    
     
-    base_root= '/content/drive/MyDrive/blablabla......./preprocessed/classification/'
+    base_root= '/content/drive/MyDrive/ise_capstone/files/preprocessed/classification/'
     
     train_dataset=datasets.ImageFolder(osp.join(base_root, 'train'), transform=train_compose)
     valid_dataset=datasets.ImageFolder(osp.join(base_root, 'val'), transform=valid_compose)
@@ -394,21 +394,19 @@ def calculate_scores(tot_labels, tot_pred_labels):
 
 
 
-def save_checkpoint(state, is_best, is_best_acc, is_best_f1, filename='/content/drive/MyDrive/blablabla......./classification/checkpoint/'+args.model_name+'_'+args.exp+'.pht'):
+def save_checkpoint(state, is_best, is_best_acc, is_best_f1, filename='/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/checkpoint/'+args.model_name+'_'+args.exp+'.pht'):
     torch.save(state, filename)
     if is_best_acc:
-        shutil.copyfile(filename, '/content/drive/MyDrive/blablabla......./classification/model_weight/'+args.model_name+'_'+args.exp+'_best_Acc.pth')
+        shutil.copyfile(filename, '/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/model_weight/'+args.model_name+'_'+args.exp+'_best_Acc.pth')
     
     if is_best:
-        shutil.copyfile(filename, '/content/drive/MyDrive/blablabla......./classification/model_weight/'+args.model_name+'_'+args.exp+'_best_Loss.pth')
+        shutil.copyfile(filename, '/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/model_weight/'+args.model_name+'_'+args.exp+'_best_Loss.pth')
         
     if is_best_f1:
-        shutil.copyfile(filename, '/content/drive/MyDrive/blablabla......./classification/model_weight/'+args.model_name+'_'+args.exp+'_best_F1.pth')
+        shutil.copyfile(filename, '/content/drive/MyDrive/ise_capstone/codes/ISE-capstonedesign/classification/model_weight/'+args.model_name+'_'+args.exp+'_best_F1.pth')
 
         
 
     
 if __name__=='__main__':
     main_worker(args)
-    
-    
