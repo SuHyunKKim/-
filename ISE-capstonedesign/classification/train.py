@@ -94,17 +94,17 @@ def main_worker(args):
 
     
     if 'res' in str(args.model_name):
-        model.fc=nn.Linear(model.fc.in_features, 5)
+        model.fc=nn.Linear(model.fc.in_features, 10)
         
     elif 'vgg' in str(args.model_name):
         model.classifier[-4]=nn.Linear(in_features=4096, out_features=256)
-        model.classifier[-1]=nn.Linear(in_features=256, out_features=5)
+        model.classifier[-1]=nn.Linear(in_features=256, out_features=10)
         
     elif 'dense' in str(args.model_name):
         model.classifier=nn.Sequential(
             nn.Linear(model.classifier.in_features, out_features=256),
             nn.ReLU(),
-            nn.Linear(in_features=256, out_features=5) )   
+            nn.Linear(in_features=256, out_features=10) )   
     
     model=model.to(device)
     
